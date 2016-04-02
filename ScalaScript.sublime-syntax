@@ -1,0 +1,132 @@
+%YAML1.2
+---
+name: ScalaScript
+file_extensions:
+  - sca
+first_line_match: '^!ScalaScript\d*$'
+scope: source.scalascript
+
+contexts:
+  main:
+    # Strings begin and end with quotes, and use caret as an escape character
+    - match: '"'
+      scope: punctuation.definition.string.begin.scalascript
+      push: string
+
+    # Comments begin with a '//' and finish at the end of the line
+    - match: '//'
+      scope: punctuation.definition.comment.scalascript
+      push: line_comment
+
+    # Block comments begin with '/*' and end with '*/'
+    - match: '/\*'
+      scope: punctuation.definition.comment.scalascript
+      push: block_comment
+
+    # Labels
+    - match: '^\s*:'
+      scope: punctuation.definition.label.scalascript
+      push: label
+
+    # Parenthesis
+    - match: '\('
+      push: parenthesis
+    - match: '\)'
+      scope: invalid.illegal.stray-paren-end
+
+    # Brackets
+    - match: '\['
+      push: brackets
+    - match: '\]'
+      scope: invalid.illegal.stray-bracket-end
+
+    # Blocks
+    - match: '\{|(?i)\bevent\b'
+      push: block
+    - match: '\}|(?i)\bend\b'
+      scope: invalid.illegal.stray-block-end
+
+    # Numbers
+    - match: '%[01]+'
+      scope: constant.numeric.binary.scalascript
+    - match: '\$\h+'
+      scope: constant.numeric.hexadecimal.scalascirpt
+    - match: '(\b|-)\d*(\.\d+)?\b'
+      scope: constant.numeric.float.scalascript
+    - match: '(\b|-)\d+\b'
+      scope: constant.numeric.integer.scalascript
+
+    # Booleans
+    - match: '(?i)\b(true|false|on|off)\b'
+      scope: constant.language.scalascript
+
+    # Operators
+    - match: '\b(NOT|AND|OR)\b'
+      scope: keyword.operator.bool.logical.scalascript
+    - match: '='
+      scope: keyword.operator.assignment.scalascript 
+    - match: '<=|>=|=|<|>|<>'
+      scope: keyword.operator.comparison.scalascript
+    - match: '\+|-|\*|\*\*|/|\bMOD\b'
+      scope: keyword.operator.arithmetic.scalascript
+
+    # Control primatives
+    # TODO shift these to only apply in a group block
+    - match: '(?i)\b(if|elseif|else|while|until)\b'
+      scope: keyword.control.flow.scalascript
+
+    # Block modifiers
+    - match: '(?i)\b(disabled|noauthor|optional)\b'
+      scope: keyword.other.block_modifier.scalascript
+
+    # Storage modifiers
+    - match: '(?i)\bexternal|template\b'
+      scope: storage.modifier.declaration.scalascript
+
+  string:
+    - meta_scope: string.quoted.double.scalascript
+    # ANSI Latin-1 character codes
+    - match: '\^x\h{2}'
+      scope: constant.character.scalascript
+    # Unicode character codes
+    - match: '\^u\h{4}'
+      scope: constant.character.scalascript
+    # Escaped characters
+    - match: '\^.'
+      scope: constant.character.escape.scalascript
+    - match: '"'
+      scope: punctuation.definition.string.end.scalascript
+      pop: true
+
+  line_comment:
+    - meta_scope: comment.line.scalascript
+    - match: '$'
+      pop: true
+
+  block_comment:
+    - meta_scope: comment.block.scalascript
+    - match: '\*/'
+      pop: true
+
+  parenthesis:
+    - match: '\)'
+      pop: true
+    - include: main
+
+  brackets:
+    - match: '\]'
+      pop: true
+    - include: main
+
+  block:
+    - match: '\}|(?i)\bend\b'
+      pop: true
+    - include: main
+    # Block sections
+    - match: '(?i)^\s*(group:|sequence:|resources:)\s*$'
+      scope: keyword.other.block_section.scalascript
+
+  label:
+    - meta_scope: entity.name.section.scalascript
+    - match: '$'
+      pop: true
