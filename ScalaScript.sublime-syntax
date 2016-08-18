@@ -51,7 +51,7 @@ contexts:
       scope: constant.numeric.binary.scalascript
     - match: '\$\h+'
       scope: constant.numeric.hexadecimal.scalascirpt
-    - match: '(\b|-)\d*(\.\d+)?\b'
+    - match: '(\b|-)\d*\.\d+\b'
       scope: constant.numeric.float.scalascript
     - match: '(\b|-)\d+\b'
       scope: constant.numeric.integer.scalascript
