@@ -11,7 +11,7 @@ contexts:
 
     # ScalaScript specific syntax
     - include: scalascript_commands
-    - include: scalascript_commands_as_parameter
+    - include: scalascript_commands_as_parameters
     - include: scalascript_functions
     - include: scalascript_parameters
     - include: scalascript_constants
@@ -215,7 +215,7 @@ contexts:
 
   # ScalaScript commands when nested to another command
   # http://forms.scala.com/advancedscripting/syntaxdocs5/functions.html
-  scalascript_commands_as_parameter:
+  scalascript_commands_as_parameters:
     - match: |-
             (?x)
             (?<=\(|\s)\b(
