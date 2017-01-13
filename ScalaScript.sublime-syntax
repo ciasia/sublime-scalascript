@@ -13,9 +13,9 @@ contexts:
     - include: scalascript_commands
     - include: scalascript_commands_as_parameter
     - include: scalascript_functions
-    - include: scalascript_params
+    - include: scalascript_parameters
     - include: scalascript_constants
-    - include: scalascript_keyframewipe_params
+    - include: scalascript_keyframewipe_parameters
     - include: scalascript_others
 
     # Strings begin and end with quotes, and use caret as an escape character
@@ -344,7 +344,7 @@ contexts:
 
   # ScalaScript parameters
   # Other nested commands/functions not being properly highlighted
-  scalascript_params:
+  scalascript_parameters:
     - match: |-
             (?x)\b(
                 Acceleration
@@ -426,7 +426,7 @@ contexts:
       scope: variable.parameter.sca
 
   # KeyFrameWipe Parameters
-  scalascript_keyframewipe_params:
+  scalascript_keyframewipe_parameters:
     - match: |-
             (?x)\b(
                 Anchor
