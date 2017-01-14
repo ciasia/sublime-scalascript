@@ -1,4 +1,4 @@
-%YAML1.2
+%YAML 1.2
 ---
 name: ScalaScript
 file_extensions:
@@ -8,6 +8,16 @@ scope: source.scalascript
 
 contexts:
   main:
+
+    # ScalaScript specific syntax
+    - include: scalascript_commands
+    - include: scalascript_commands_as_parameters
+    - include: scalascript_functions
+    - include: scalascript_parameters
+    - include: scalascript_constants
+    - include: scalascript_keyframewipe_parameters
+    - include: scalascript_others
+
     # Strings begin and end with quotes, and use caret as an escape character
     - match: '"'
       scope: punctuation.definition.string.begin.scalascript
@@ -130,3 +140,315 @@ contexts:
     - meta_scope: entity.name.section.scalascript
     - match: '$'
       pop: true
+
+  # ScalaScript commands
+  # http://forms.scala.com/advancedscripting/syntaxdocs5/commands.html
+  scalascript_commands:
+    - match: |-
+            (?x)(?<=\s{4})\b(
+                Anim(Clip|Style|ClipStyle)?
+              | Assign
+              | AsyncScript
+              | BackgroundSettings
+              | Billing
+              | Button
+              | Clip(Style)?
+              | Config.RecentPublishLocations
+              | Coriogen\.(Freeze|Mode|ZoomPan)
+              | Display(Style)?
+              | Duration
+              | Ellipse(Style)?
+              | EX(\.Reset)?
+              | Exit
+              | FadeWipe
+              | Flash(Clip|Style|ClipStyle)?
+              | Frame
+              | Goto(Expr)?
+              | HardDuration
+              | Hotkey
+              | Input
+              | Jump(Page)?
+              | KeyFrameWipe
+              | Launch
+              | Leightrx\.(Play|Record|Rewind|Stop|Switch|Wait)
+              | LocalAssign
+              | Log
+              | Modal
+              | Monitor
+              | Movie(Clip|Style|ClipStyle)?
+              | Notification
+              | Object
+              | OnEdge
+              | OnNotification
+              | Pause(\.Milli)?
+              | Pick\.(Sequential|Shuffle)
+              | Picture(Style|Wipe)?
+              | Quit
+              | Record.Timing
+              | Rect(Style)?
+              | Return
+              | ReuseDisplay
+              | Sample\.(Capture|Play|Stop|Wait)
+              | Schedule\.(Exact|TimeSlot|TriggerSlot)
+              | Script
+              | Serial\.(Close|Open|Receive|Send)
+              | SetVisible
+              | Shape(Style)?
+              | StreamingVideo(Clip|Style|ClipStyle)?
+              | SuperimposeWipe
+              | Switch
+              | Table(Style)?
+              | Text(Box|Crawl|EntryButton|File|Style|BoxStyle|CrawlStyle|EntryButtonStyle)?
+              | TVTuner\.(ChannelDown|ChannelUp|Reset|SetChannel|Volume)
+              | TVTunerClip(Style)?
+              | Use(Expr|sFiles)?
+              | VCR\.(Audio|GoTo|Pause|Play|PlayTo|PlayTrack|Record|Rewind|Stop|Sync|Wait)
+              | VirtualMonitor
+              | Volume.DuckOthers
+              | Wait
+              | WebClip(Style)?
+              | WindowsScript
+              | Wipe(Alias|Out|To)
+              | XMLFile
+            )\b(?=\()
+      scope: entity.name.function.sca
+
+  # ScalaScript commands when nested to another command
+  # http://forms.scala.com/advancedscripting/syntaxdocs5/functions.html
+  scalascript_commands_as_parameters:
+    - match: |-
+            (?x)
+            (?<=\(|\s)\b(
+                Anim(Clip|Style|ClipStyle)?
+              | Assign
+              | AsyncScript
+              | BackgroundSettings
+              | Billing
+              | Button
+              | Clip(Style)?
+              | Config.RecentPublishLocations
+              | Coriogen\.(Freeze|Mode|ZoomPan)
+              | Display(Style)?
+              | Duration
+              | Ellipse(Style)?
+              | EX(\.Reset)?
+              | Exit
+              | FadeWipe
+              | Flash(Clip|Style|ClipStyle)?
+              | Frame
+              | Goto(Expr)?
+              | HardDuration
+              | Hotkey
+              | Input
+              | Jump(Page)?
+              | KeyFrameWipe
+              | Launch
+              | Leightrx\.(Play|Record|Rewind|Stop|Switch|Wait)
+              | LocalAssign
+              | Log
+              | Modal
+              | Monitor
+              | Movie(Clip|Style|ClipStyle)?
+              | Notification
+              | Object
+              | OnEdge
+              | OnNotification
+              | Pause(\.Milli)?
+              | Pick\.(Sequential|Shuffle)
+              | Picture(Style|Wipe)?
+              | Quit
+              | Record.Timing
+              | Rect(Style)?
+              | Return
+              | ReuseDisplay
+              | Sample\.(Capture|Play|Stop|Wait)
+              | Schedule\.(Exact|TimeSlot|TriggerSlot)
+              | Script
+              | Serial\.(Close|Open|Receive|Send)
+              | SetVisible
+              | Shape(Style)?
+              | StreamingVideo(Clip|Style|ClipStyle)?
+              | SuperimposeWipe
+              | Switch
+              | Table(Style)?
+              | Text(Box|Crawl|EntryButton|File|Style|BoxStyle|CrawlStyle|EntryButtonStyle)?
+              | TVTuner\.(ChannelDown|ChannelUp|Reset|SetChannel|Volume)
+              | TVTunerClip(Style)?
+              | Use(Expr|sFiles)?
+              | VCR\.(Audio|GoTo|Pause|Play|PlayTo|PlayTrack|Record|Rewind|Stop|Sync|Wait)
+              | VirtualMonitor
+              | Volume.DuckOthers
+              | Wait
+              | WebClip(Style)?
+              | WindowsScript
+              | Wipe(Alias|Out|To)
+              | XMLFile
+            )\b(?=\()
+      scope: variable.parameter.sca
+
+  # ScalaScript functions
+  # http://forms.scala.com/advancedscripting/syntaxdocs5/commands.html
+  scalascript_functions:
+    - match: |-
+            (?x)\b(
+                Abs
+              | Bezier
+              | Char
+              | Close
+              | Cluster.SequenceCount
+              | Code
+              | Conditional
+              | Copy
+              | Cos
+              | DegreesToRadians
+              | DirExists
+              | Eof
+              | Erase
+              | Eval(Bool|Int|Real|String)
+              | Exists
+              | FileSize
+              | Format(Real)?
+              | GetEnv
+              | Left
+              | Length
+              | Max
+              | Min
+              | MkDir
+              | Movie.Duration
+              | Open
+              | Position
+              | RadiansToDegrees
+              | Random
+              | Read(Bool|Chars|Int|Str)
+              | Rename
+              | Revision
+              | Right
+              | RmDir
+              | Search
+              | Seed
+              | Sign
+              | Sin
+              | Sqrt
+              | Substring
+              | SysTime
+              | Tan
+              | Target(AspectRatio|Height|Width)?
+              | TVTuner\.(CurrentChannelName|GetVolume)
+              | Uni(char|code)
+              | Value
+              | Version
+              | Which
+              | Write(Bool|Chars|Int|Str)
+            )\b(?=\()
+      scope: variable.function.sca
+
+  # ScalaScript parameters
+  # Other nested commands/functions not being properly highlighted
+  scalascript_parameters:
+    - match: |-
+            (?x)\b(
+                Acceleration
+              | AdjustFontSize
+              | Align
+              | AlphaGradient
+              | AntiAlias
+              | Append(Clip)?
+              | Area
+              | AutoScale
+              | Backdrop
+              | Base
+              | Bevel
+              | Bookmark
+              | Border
+              | Caps
+              | ChromaKey
+              | Component
+              | Crop
+              | Data(Exists)?Variable
+              | Delta
+              | Direction
+              | Duration
+              | Engine
+              | Face
+              | Feather
+              | Flip
+              | Focus
+              | Font
+              | Justify
+              | Kerning
+              | Keyboard(Controls)?
+              | Leading
+              | Line
+              | Layer
+              | Left
+              | Loops
+              | Map(Repeating)?Data
+              | Margin
+              | Mask
+              | MinSize
+              | Mouse(Controls)?
+              | Normal(Off)?
+              | NumRecords
+              | OnReplay
+              | Opacity
+              | Operation
+              | Outline
+              | Path
+              | Pen
+              | PointerSelectionOnly
+              | PublishLocation
+              | Relative
+              | RenderSize
+              | Resize
+              | RGBPen
+              | Right
+              | Select(Down)?
+              | Shadow
+              | ShareVariable
+              | Size
+              | Softness
+              | Source
+              | Tabs
+              | TextExpr
+              | Thickness
+              | TouchScreen
+              | Transparent
+              | Under
+              | UserPalette
+              | UseCharHeight
+              | UsePointerBlanking
+              | Variable
+              | Wait
+              | Width
+              | Wipe
+              | Wrap
+            )\b(?=\()
+      scope: variable.parameter.sca
+
+  # KeyFrameWipe Parameters
+  scalascript_keyframewipe_parameters:
+    - match: |-
+            (?x)\b(
+                Anchor
+              | Direction
+              | Final
+              | Frames
+              | Icon
+              | Initial
+              | Previous(OnTop)?
+              | Scale
+              | Through
+              | Time(Scale)?
+              | Translate(Pixel(X|Y)|Target)?
+            )\b(?=\()
+      scope: variable.parameter.sca
+
+  # Other Commands/Functions
+  scalascript_others:
+    - match: |-
+            (?x)\b(
+                Layout
+              | Style
+              | Update
+            )\b(?=\()
+      scope: variable.parameter.sca
