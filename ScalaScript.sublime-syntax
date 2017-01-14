@@ -214,7 +214,7 @@ contexts:
       scope: entity.name.function.scalascript
 
   # ScalaScript commands when nested to another command
-  # http://forms.scala.com/advancedscripting/syntaxdocs5/functions.html
+  # http://forms.scala.com/advancedscripting/syntaxdocs5/commands.html
   scalascript_commands_as_parameters:
     - match: |-
             (?x)
@@ -287,7 +287,7 @@ contexts:
       scope: variable.parameter.scalascript
 
   # ScalaScript functions
-  # http://forms.scala.com/advancedscripting/syntaxdocs5/commands.html
+  # http://forms.scala.com/advancedscripting/syntaxdocs5/functions.html
   scalascript_functions:
     - match: |-
             (?x)\b(
