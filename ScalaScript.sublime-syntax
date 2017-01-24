@@ -32,6 +32,17 @@ contexts:
     - match: '/\*'
       scope: punctuation.definition.comment.scalascript
       push: block_comment
+      
+    # Disabled lines begin with the word 'Disabled' and finish at the end of the line
+    - match: '(?i)\bDisabled\b\s*\w+'
+      scope: punctuation.definition.comment.scalascript
+      push: line_disabled
+
+    # Disabled blocks begin with the word 'Disabled' and end with the block end marker '}'
+    # TODO make this apply to nested blocks
+    - match: '(?i)\bDisabled\b\n'
+      scope: punctuation.definition.comment.scalascript
+      push: block_disabled
 
     # Labels
     - match: '^\s*:'
@@ -102,7 +113,7 @@ contexts:
       scope: keyword.control.flow.scalascript
 
     # Block modifiers
-    - match: '(?i)\b(disabled|noauthor|optional)\b'
+    - match: '(?i)\b(NoAuthor|Optional)\b'
       scope: keyword.other.block_modifier.scalascript
 
     # Storage modifiers
@@ -132,6 +143,16 @@ contexts:
   block_comment:
     - meta_scope: comment.block.scalascript
     - match: '\*/'
+      pop: true
+      
+  line_disabled:
+    - meta_scope: comment.line.scalascript
+    - match: '$'
+      pop: true
+
+  block_disabled:
+    - meta_scope: comment.block.scalascript
+    - match: '\}'
       pop: true
 
   parenthesis:
