@@ -211,10 +211,10 @@ contexts:
               | Wipe(Alias|Out|To)
               | XMLFile
             )\b(?=\()
-      scope: entity.name.function.sca
+      scope: entity.name.function.scalascript
 
   # ScalaScript commands when nested to another command
-  # http://forms.scala.com/advancedscripting/syntaxdocs5/functions.html
+  # http://forms.scala.com/advancedscripting/syntaxdocs5/commands.html
   scalascript_commands_as_parameters:
     - match: |-
             (?x)
@@ -284,10 +284,10 @@ contexts:
               | Wipe(Alias|Out|To)
               | XMLFile
             )\b(?=\()
-      scope: variable.parameter.sca
+      scope: variable.parameter.scalascript
 
   # ScalaScript functions
-  # http://forms.scala.com/advancedscripting/syntaxdocs5/commands.html
+  # http://forms.scala.com/advancedscripting/syntaxdocs5/functions.html
   scalascript_functions:
     - match: |-
             (?x)\b(
@@ -340,7 +340,7 @@ contexts:
               | Which
               | Write(Bool|Chars|Int|Str)
             )\b(?=\()
-      scope: variable.function.sca
+      scope: variable.function.scalascript
 
   # ScalaScript parameters
   # Other nested commands/functions not being properly highlighted
@@ -423,7 +423,7 @@ contexts:
               | Wipe
               | Wrap
             )\b(?=\()
-      scope: variable.parameter.sca
+      scope: variable.parameter.scalascript
 
   # KeyFrameWipe Parameters
   scalascript_keyframewipe_parameters:
@@ -441,7 +441,7 @@ contexts:
               | Time(Scale)?
               | Translate(Pixel(X|Y)|Target)?
             )\b(?=\()
-      scope: variable.parameter.sca
+      scope: variable.parameter.scalascript
 
   # Other Commands/Functions
   scalascript_others:
@@ -451,4 +451,4 @@ contexts:
               | Style
               | Update
             )\b(?=\()
-      scope: variable.parameter.sca
+      scope: variable.parameter.scalascript
