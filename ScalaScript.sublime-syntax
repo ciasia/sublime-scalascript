@@ -32,6 +32,17 @@ contexts:
     - match: '/\*'
       scope: punctuation.definition.comment.scalascript
       push: block_comment
+      
+    # Disabled lines begin with the word 'Disabled' and finish at the end of the line
+    - match: '(?i)\bDisabled\b\s*\w+'
+      scope: punctuation.definition.comment.scalascript
+      push: line_disabled
+
+    # Disabled blocks begin with the word 'Disabled' and end with the block end marker '}'
+    # TODO make this apply to nested blocks
+    - match: '(?i)\bDisabled\b\n'
+      scope: punctuation.definition.comment.scalascript
+      push: block_disabled
 
     # Labels
     - match: '^\s*:'
@@ -51,9 +62,9 @@ contexts:
       scope: invalid.illegal.stray-bracket-end
 
     # Blocks
-    - match: '\{|(?i)\bevent\b'
+    - match: '\{|(?i)\bEvent\b'
       push: block
-    - match: '\}|(?i)\bend\b'
+    - match: '\}|(?i)\bEnd\b'
       scope: invalid.illegal.stray-block-end
 
     # Numbers
@@ -67,8 +78,24 @@ contexts:
       scope: constant.numeric.integer.scalascript
 
     # Booleans
-    - match: '(?i)\b(true|false|on|off)\b'
+    - match: '(?i)\b(True|False|On|Off)\b'
       scope: constant.language.scalascript
+      
+    # Enumerated values
+    - match: '\b(Blue|Green|Red)\b'
+      scope: constant.language.enum.color.scalascript
+    - match: '\b(Bevel|Notch|Round|Scoop)\b'
+      scope: constant.language.enum.corner.scalascript
+    - match: '\b(North|East|South|West)\b'
+      scope: constant.language.enum.direction.scalascript
+    - match: '\b(FillAndTrim|FitInside)\b'
+      scope: constant.language.enum.fitting.scalascript
+    - match: '\b(Alpha|AscenderHeight|CapHeight|CellHeight|Small)\b'
+      scope: constant.language.enum.font.scalascript
+    - match: '\b(Bottom|Center|Left|Middle|Right|Top)\b'
+      scope: constant.language.enum.position.scalascript
+    - match: '\b(All|Arrow|Ignore|None|Normal|Replace|Square)\b'
+      scope: constant.language.enum.other.scalascript
 
     # Operators
     - match: '\b(NOT|AND|OR)\b'
@@ -80,18 +107,22 @@ contexts:
     - match: '\+|-|\*|\*\*|/|\bMOD\b'
       scope: keyword.operator.arithmetic.scalascript
 
-    # Control primatives
+    # Control primitives
     # TODO shift these to only apply in a group block
-    - match: '(?i)\b(if|elseif|else|while|until)\b'
+    - match: '(?i)\b(If|ElseIf|Else|While|Until)\b'
       scope: keyword.control.flow.scalascript
 
     # Block modifiers
-    - match: '(?i)\b(disabled|noauthor|optional)\b'
+    - match: '(?i)\b(NoAuthor|Optional)\b'
       scope: keyword.other.block_modifier.scalascript
+      
+    # Storage types
+    - match: '(?i)\b(Boolean|FileNameString|Integer|Real|ResourceNameString|ScriptNameString|String)\b'
+      scope: storage.type.scalascript
 
     # Storage modifiers
-    - match: '(?i)\bexternal|template\b'
-      scope: storage.modifier.declaration.scalascript
+    - match: '(?i)\bExternal|Template\b'
+      scope: storage.modifier.scalascript
 
   string:
     - meta_scope: string.quoted.double.scalascript
@@ -117,6 +148,16 @@ contexts:
     - meta_scope: comment.block.scalascript
     - match: '\*/'
       pop: true
+      
+  line_disabled:
+    - meta_scope: comment.line.scalascript
+    - match: '$'
+      pop: true
+
+  block_disabled:
+    - meta_scope: comment.block.scalascript
+    - match: '\}'
+      pop: true
 
   parenthesis:
     - match: '\)'
@@ -133,7 +174,7 @@ contexts:
       pop: true
     - include: main
     # Block sections
-    - match: '(?i)^\s*(group:|sequence:|resources:)\s*$'
+    - match: '(?i)^\s*(Group:|Sequence:|Resources:)\s*$'
       scope: keyword.other.block_section.scalascript
 
   label:
@@ -360,20 +401,30 @@ contexts:
               | Bevel
               | Bookmark
               | Border
+              | Bottom(Left|Right)
+              | BreakIdeographs
               | Caps
               | ChromaKey
+              | Columns
               | Component
+              | Corners
               | Crop
               | Data(Exists)?Variable
               | Delta
               | Direction
               | Duration
+              | End(Caps|Time)
               | Engine
+              | Explicit
               | Face
+              | Fade
               | Feather
+              | Fit
               | Flip
               | Focus
               | Font
+              | ImageRange
+              | Invert
               | Justify
               | Kerning
               | Keyboard(Controls)?
@@ -385,16 +436,19 @@ contexts:
               | Map(Repeating)?Data
               | Margin
               | Mask
+              | MatchSize
               | MinSize
               | Mouse(Controls)?
               | Normal(Off)?
               | NumRecords
+              | Offset
               | OnReplay
               | Opacity
               | Operation
               | Outline
+              | Pan
               | Path
-              | Pen
+              | Pen(Gradient)?
               | PointerSelectionOnly
               | PublishLocation
               | Relative
@@ -402,15 +456,22 @@ contexts:
               | Resize
               | RGBPen
               | Right
+              | Rotate
+              | Rows
               | Select(Down)?
               | Shadow
               | ShareVariable
+              | Shift
+              | ShowThrough
               | Size
               | Softness
               | Source
+              | Spacing
               | Tabs
               | TextExpr
               | Thickness
+              | ThumbnailImage
+              | Top(Left|Right)
               | TouchScreen
               | Transparent
               | Under
