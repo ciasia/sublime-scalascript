@@ -360,20 +360,30 @@ contexts:
               | Bevel
               | Bookmark
               | Border
+              | Bottom(Left|Right)
+              | BreakIdeographs
               | Caps
               | ChromaKey
+              | Columns
               | Component
+              | Corners
               | Crop
               | Data(Exists)?Variable
               | Delta
               | Direction
               | Duration
+              | End(Caps|Time)
               | Engine
+              | Explicit
               | Face
+              | Fade
               | Feather
+              | Fit
               | Flip
               | Focus
               | Font
+              | ImageRange
+              | Invert
               | Justify
               | Kerning
               | Keyboard(Controls)?
@@ -385,16 +395,19 @@ contexts:
               | Map(Repeating)?Data
               | Margin
               | Mask
+              | MatchSize
               | MinSize
               | Mouse(Controls)?
               | Normal(Off)?
               | NumRecords
+              | Offset
               | OnReplay
               | Opacity
               | Operation
               | Outline
+              | Pan
               | Path
-              | Pen
+              | Pen(Gradient)?
               | PointerSelectionOnly
               | PublishLocation
               | Relative
@@ -402,15 +415,22 @@ contexts:
               | Resize
               | RGBPen
               | Right
+              | Rotate
+              | Rows
               | Select(Down)?
               | Shadow
               | ShareVariable
+              | Shift
+              | ShowThrough
               | Size
               | Softness
               | Source
+              | Spacing
               | Tabs
               | TextExpr
               | Thickness
+              | ThumbnailImage
+              | Top(Left|Right)
               | TouchScreen
               | Transparent
               | Under
