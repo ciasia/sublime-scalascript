@@ -34,13 +34,13 @@ contexts:
       push: block_comment
       
     # Disabled lines begin with the word 'Disabled' and finish at the end of the line
-    - match: '\bDisabled\b\s*\w+'
+    - match: '(?i)\bDisabled\b\s*\w+'
       scope: punctuation.definition.comment.scalascript
       push: line_disabled
 
     # Disabled blocks begin with the word 'Disabled' and end with the block end marker '}'
     # TODO make this apply to nested blocks
-    - match: '\bDisabled\b\n'
+    - match: '(?i)\bDisabled\b\n'
       scope: punctuation.definition.comment.scalascript
       push: block_disabled
 
@@ -62,9 +62,9 @@ contexts:
       scope: invalid.illegal.stray-bracket-end
 
     # Blocks
-    - match: '\{|\bEvent\b'
+    - match: '\{|(?i)\bEvent\b'
       push: block
-    - match: '\}|\bEnd\b'
+    - match: '\}|(?i)\bEnd\b'
       scope: invalid.illegal.stray-block-end
 
     # Numbers
@@ -78,7 +78,7 @@ contexts:
       scope: constant.numeric.integer.scalascript
 
     # Booleans
-    - match: '\b(True|False|On|Off)\b'
+    - match: '(?i)\b(True|False|On|Off)\b'
       scope: constant.language.scalascript
       
     # Enumerated values
@@ -109,19 +109,19 @@ contexts:
 
     # Control primitives
     # TODO shift these to only apply in a group block
-    - match: '\b(If|ElseIf|Else|While|Until)\b'
+    - match: '(?i)\b(If|ElseIf|Else|While|Until)\b'
       scope: keyword.control.flow.scalascript
 
     # Block modifiers
-    - match: '\b(NoAuthor|Optional)\b'
+    - match: '(?i)\b(NoAuthor|Optional)\b'
       scope: keyword.other.block_modifier.scalascript
       
     # Storage types
-    - match: '\b(Boolean|FileNameString|Integer|Real|ResourceNameString|ScriptNameString|String)\b'
+    - match: '(?i)\b(Boolean|FileNameString|Integer|Real|ResourceNameString|ScriptNameString|String)\b'
       scope: storage.type.scalascript
 
     # Storage modifiers
-    - match: '\bExternal|Template\b'
+    - match: '(?i)\bExternal|Template\b'
       scope: storage.modifier.scalascript
 
   string:
@@ -174,7 +174,7 @@ contexts:
       pop: true
     - include: main
     # Block sections
-    - match: '^\s*(Group:|Sequence:|Resources:)\s*$'
+    - match: '(?i)^\s*(Group:|Sequence:|Resources:)\s*$'
       scope: keyword.other.block_section.scalascript
 
   label:
